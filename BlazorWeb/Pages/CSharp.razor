@@ -13,9 +13,9 @@
 {
     <div class="form-group">
         <form>
-            <textarea class="form-control" @bind="customHeader" name="Besked" rows="5" cols="50"></textarea>
+            <textarea class="form-control" @bind="customHeader" name="Besked" rows="5" cols="50"></textarea> <!--@L.GetString(BlazorWeb.Resources.Resource1.StandardText)-->
             <br>
-            <button type="button" class="btn btn-outline-secondary" @onclick="UpdateHeading">Update</button>
+            <button type="button" class="btn btn-outline-success" @onclick="UpdateHeading">Update</button>
             <button type="button" class="btn btn-outline-danger" @onclick="DeleteHeading">Delete</button>
         </form>
     </div>
@@ -23,11 +23,12 @@
 
 @code {
     private string customHeader = "";
-    private bool isVisible = false;
     private string delHeading = "N/A";
     private string headingValue = "Initial heading";
     private string checkedMessage = "Not changed yet";
     private string headingChangeTime = "N/A";
+
+    private bool isVisible = false;
 
     private void ToggleVisibility()
     {
@@ -40,10 +41,6 @@
             headingValue = $"{customHeader}";
 
             headingChangeTime = $"Updated ({DateTime.Now})";
-        }
-        else
-        {
-            
         }
     }
     private void DeleteHeading()

@@ -1,0 +1,91 @@
+﻿@page "/untilrandom"
+
+<link rel="stylesheet" href="css/StyleSheet.css" />
+
+<PageTitle>Random Until</PageTitle>
+
+<h3>Random Until</h3>
+
+<div>
+    <input @bind="@inputtetValue" maxlength="4" />
+    <button class="btn btn-outline-primary" @onclick="Start">Start</button>
+</div>
+
+<!--@if (isVisible)
+{
+    <Spinner />
+}-->
+
+<br />
+<p>@displayedWord</p>
+
+@if (capsLockError)
+{
+    <p style="color: red;">Caps Lock characters are not allowed!</p>
+}
+
+@code {
+    private string inputtetValue = "";
+    private string displayedWord = "";
+    private bool isVisible = false;
+    private bool capsLockError = false;
+
+    private string GenerateRandomName(Random random)
+    {
+        const string letters = "abcdefghijklmnopqrstuvwxyz";
+        string result = "";
+
+        for (int i = 0; i < inputtetValue.Length; i++)
+        {
+            result += letters[random.Next(letters.Length)];
+        }
+
+        return result;
+    }
+
+    private void ToggleVisibility()
+    {
+        isVisible = !isVisible;
+    }
+
+    private async Task Start()
+    {
+        int tries = 0;
+        string randomWord = "";
+
+        if (inputtetValue.Any(char.IsUpper))
+        {
+            capsLockError = true;
+            return;
+        }
+        else
+        {
+            capsLockError = false;
+        }
+
+        if (!string.IsNullOrEmpty(inputtetValue))
+        {
+            //isVisible = true;
+            DateTime dateStart = DateTime.Now;
+            Random random = new Random();
+
+            while (randomWord != inputtetValue)
+            {
+                randomWord = GenerateRandomName(random);
+                tries++;
+            }
+
+            if (randomWord == inputtetValue)
+            {
+                var time = DateTime.Now - dateStart;
+                string formattedTime = $"{time.TotalSeconds.ToString("0.000")} seconds";
+
+                displayedWord = $"Amount of tries: {tries:N0}\nOutput word was: {randomWord}\nIt took {formattedTime}.";
+
+                //await Task.Delay(1000);
+
+                //isVisible = false;
+            }
+        }
+    }
+}

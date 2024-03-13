@@ -120,4 +120,7 @@
   <data name="NullErrorInput" xml:space="preserve">
     <value>This input cannot be null</value>
   </data>
+  <data name="StandardText" xml:space="preserve">
+    <value>Indput tekst her...</value>
+  </data>
 </root>
