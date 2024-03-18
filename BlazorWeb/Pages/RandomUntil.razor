@@ -48,7 +48,7 @@
         isVisible = !isVisible;
     }
 
-    private async Task Start()
+    private void Start()
     {
         int tries = 0;
         string randomWord = "";
@@ -78,9 +78,9 @@
             if (randomWord == inputtetValue)
             {
                 var time = DateTime.Now - dateStart;
-                string formattedTime = $"{time.TotalSeconds.ToString("0.000")} seconds";
+                string formattedTime = $"{time.TotalSeconds.ToString("0.0000")} seconds";
 
-                displayedWord = $"Amount of tries: {tries:N0}\nOutput word was: {randomWord}\nIt took {formattedTime}.";
+                displayedWord = $"Amount of tries: {tries:N0}Output word was: {randomWord} It took {formattedTime}.";
 
                 //await Task.Delay(1000);
 

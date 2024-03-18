@@ -7,6 +7,10 @@
     animation: spin 1s linear infinite;
 }
 
+.error-message-color {
+    color: darkgoldenrod;
+}
+
 @keyframes spin {
     to {
         transform: rotate(360deg);

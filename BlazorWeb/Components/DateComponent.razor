@@ -1,0 +1,8 @@
+﻿<!-- DateComponent.razor -->
+@page "/datecomponent"
+
+<input type="date" @bind="selectedDate" />
+
+@code {
+    private DateTime selectedDate { get; set; } = DateTime.Today;
+}
