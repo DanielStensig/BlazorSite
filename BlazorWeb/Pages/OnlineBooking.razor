@@ -1,0 +1,12 @@
+﻿@page "/booking"
+@inject HttpClient Http
+
+<PageTitle>Booking</PageTitle>
+
+<h4>Vælg Dato: <DateComponent/></h4>
+
+<h4>Booking Date: @bookingDate.ToShortDateString()</h4>
+
+@code {
+    private DateTime bookingDate { get; set; } = DateTime.Today;
+}

@@ -1,0 +1,91 @@
+﻿@page "/contact"
+
+<PageTitle>Kontakt</PageTitle>
+
+<div class="center">
+    <div class="form-group">
+        <form @onsubmit="HandleSubmission">
+            <h1>Kontakt</h1>
+            <label class="form-label" for="fname">Fornavn:</label>
+            <input class="form-control" type="text" @bind="fname" id="fname" required placeholder="Fornavn..">
+            <br>
+            <label class="form-label" for="lname">Efternavn:</label>
+            <input class="form-control" type="text" @bind="lname" id="lname" required placeholder="Efternavn..">
+            <br>
+            <label class="form-label" for="subject">Emne:</label>
+            <input class="form-control" type="text" @bind="subject" id="subject" required placeholder="Emne..">
+            <br>
+            <label for="date">Dato og tid der passer dig:</label>
+            <br>
+            <input type="datetime-local" id="date" @bind="newDate"/>
+            <br>
+            <br>
+            <label for="besked">Besked:</label>
+            <textarea class="form-control" cols="50" rows="7" @bind="message" id="message" required placeholder="Din besked her.."></textarea>
+            <br>
+            <input class="btn btn-primary" type="submit" value="Submit">
+            <input class="btn btn-secondary" type="reset" value="Reset">
+        </form>
+    </div>
+
+    @if (!string.IsNullOrEmpty(OutputtetMessage))
+    {
+        <br>
+        <br>
+        <form action="mailto:example@example.com?subject=@subject" method="post" enctype="text/plain">
+            <input type="hidden" name="Fornavn" value=" @fname" />
+            <input type="hidden" name="Efternavn" value=" @lname" />
+            <input type="hidden" name="Dato" value="@newDate" />
+            <input type="hidden" name="Besked" value="@message" />
+
+            <h5><strong>Din Mail</strong></h5>
+            <p>Fornavn: @OutputtetFname</p>
+            <p>Efternavn: @OutputtetLname</p>
+            <p>Emne: @OutputtetEmne</p>
+            <p>Dato: @date</p>
+            <p>Message: @OutputtetMessage</p>
+            <p style="color: darkgoldenrod;"><strong>Please check your email for formatting before sending</strong></p>
+            <br>
+            <button type="submit" class="btn btn-primary">Send email</button>
+        </form>
+
+        <!--<a class="btn btn-primary" href="@GenerateMailToLink()">Send email</a>-->
+    }
+</div>
+
+<style>
+    .center {
+        margin: auto;
+        width: 60%;
+        padding: 10px;
+    }
+</style>
+
+@code {
+    public string fname { get; set; }
+    public string lname { get; set; }
+    public string subject { get; set; }
+    public string message { get; set; }
+    public string date { get; set; }
+    public string OutputtetFname;
+    public string OutputtetLname;
+    public string OutputtetEmne;
+    public string OutputtetMessage;
+    DateTime newDate = new DateTime();
+
+    public void HandleSubmission()
+    {
+        OutputtetFname = $"Fornavn: {fname}";
+        OutputtetLname = $"Efternavn: {lname}";
+        OutputtetEmne = $"Emne: {subject}";
+        date = $"Dato: {newDate}";
+        OutputtetMessage = $"Besked: {message}";
+    }
+
+
+    /*private string GenerateMailToLink()
+    {
+        // Generate mailto link with populated body
+        return $"mailto:example@example.com?subject=NewSubmission&body={OutputtetFname}\n{OutputtetLname}\n{OutputtetEmne}\n{OutputtetMessage}";
+    }*/
+}
